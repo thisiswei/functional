@@ -60,3 +60,26 @@ fun insert (x, E) = T (E, x, E)
 
 (* Exercise 2.6 Adapt the UnbalancedSet functor to support finite maps rather than sets. Figure 2.10 gives a minimal signature for finite maps. (Note that the NOTFOUND exception is not predefined in Standard ML—you will have to de- fine it yourself. Although this exception could be made part of the FINITEMAP signature, with every implementation defining its own NOTFOUND exception, it is convenient for all finite maps to use the same exception.) *)
 
+
+datatype 'a heap = E | T of 'a * 'a * 'a heap * 'a heap
+
+fun rank E = 0
+  | rank (T (r, _, _, _)) = r
+
+fun makeT (x, a, b) = if rank a >= rank b then T (rank b + 1, x, a, b)
+                      else T (rank a+1, x, b, a)
+
+val empty = E
+fun isEmpty E = true | isEmpty _ = false
+fun merge (h, E) = h
+  | merge (E, h) = h
+  | merge (h1 as T (_, x, a1, b1), h2 as T (_, y, a2, b2)) =
+      if x <= y then makeT (x, a1, merge(b1, h2))
+      else makeT (y, a2, merge(h1, b2))
+
+fun insert (x, h) = merge (T (1, x, E, E), h)
+fun findMin E = raise Empty
+  | findMin (T (_, x, _, _)) = x
+
+fun deleteMin E = raise Empty
+  | deleteMin (T (_, x, a, b)) = merge(a, b)
