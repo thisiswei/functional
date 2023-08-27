@@ -37,13 +37,16 @@ fun insert (x, E) = T (E, x, E)
       else if x < y then T (insert(x, lf), y, rt)
       else s
 
+(*
+   Exercise 2.2 (Andersson [And91D In the worst case, member performs approximately 2d comparisons,
+   where d is the depth of the tree.  Rewrite member to take no more than d + 1 comparisons by keeping track of a candidate element
+   that might be equal to the query element (say, the last element for which < returned false or < returned true) and
+   checking for equality only when you hit the bottom of the tree.
+*)
 
-(* Exercise 2.2 (Andersson [And91D In the worst case, member performs ap- proximately 2d comparisons, where d is the depth of the tree. Rewrite member to take no more than d + 1 comparisons by keeping track of a candidate ele- ment that might be equal to the query element (say, the last element for which *)
 
-
-
-
-(* Exercise 2.3 Inserting an existing element into a binary search tree copies the entire search path even though the copied nodes are indistinguishable from the originals. Rewrite insert using exceptions to avoid this copying. Establish only one handler per insertion rather than one handler per iteration. *)
+(* Exercise 2.3 Inserting an existing element into a binary search tree copies the entire search path even though the copied nodes are indistinguishable from the originals.
+ Rewrite insert using exceptions to avoid this copying. Establish only one handler per insertion rather than one handler per iteration. *)
 
 
 (* Exercise 2.4 Combine the ideas of the previous two exercises to obtain a ver- sion of insert that performs no unnecessary copying and uses no more than d+ 1comparisons. *)
@@ -56,3 +59,4 @@ fun insert (x, E) = T (E, x, E)
 
 
 (* Exercise 2.6 Adapt the UnbalancedSet functor to support finite maps rather than sets. Figure 2.10 gives a minimal signature for finite maps. (Note that the NOTFOUND exception is not predefined in Standard ML—you will have to de- fine it yourself. Although this exception could be made part of the FINITEMAP signature, with every implementation defining its own NOTFOUND exception, it is convenient for all finite maps to use the same exception.) *)
+
