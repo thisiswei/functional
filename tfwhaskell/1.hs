@@ -55,3 +55,10 @@ convert6 n
 
 link :: Int -> String
 link h = if h < 100 then " and " else " "
+
+myzip (x:xs) (y:ys) = (x,y) : (myzip xs ys)
+myzip [] [] = []
+myzip xs [] = []
+myzip [] xs = []
+
+
