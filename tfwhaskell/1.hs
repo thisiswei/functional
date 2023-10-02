@@ -66,3 +66,16 @@ myspan p (x:xs) = if p x then (x:ys, zs)
                 else ([], x:xs)
                 where (ys, zs) = myspan p xs
 
+sort [] = []
+sort [x] = [x]
+sort xs = merge (sort ys) (sort zs)
+  where (ys, zs) = half xs
+
+
+half xs = (take n xs, drop n xs)
+    where n = length xs `div` 2
+
+merge [] ys = ys
+merge xs [] = xs
+merge (x:xs) (y:ys) = if x <= y then (x : merge xs (y:ys)) else (y:merge (x:xs) ys)
+
