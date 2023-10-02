@@ -61,4 +61,8 @@ myzip [] [] = []
 myzip xs [] = []
 myzip [] xs = []
 
+myspan p [] = ([], [])
+myspan p (x:xs) = if p x then (x:ys, zs)
+                else ([], x:xs)
+                where (ys, zs) = myspan p xs
 
